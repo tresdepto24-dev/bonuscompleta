@@ -17,7 +17,7 @@
         }
         .libro-container {
             width: 100%;
-            max-width: 480px; /* Reducido a 480px para que encaje exacto en Google Sites sin desbordar */
+            max-width: 480px;
             background: #f4ebd0;
             border: 3px solid #4a2e18;
             padding: 8px;
@@ -43,7 +43,6 @@
             margin: 2px 0 0 0;
             color: #5c3a21;
         }
-        /* Grilla compacta de 2 columnas pensada para celus y Sites */
         .grilla-directorio {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -76,10 +75,9 @@
             padding-bottom: 2px;
             margin-bottom: 3px;
         }
-        /* Contenedor de foto sin recortes (Contain puro) */
         .casilla-img-container {
             width: 100%;
-            height: 85px; /* Altura optimizada para que entre de golpe en la pantalla */
+            height: 85px;
             background: #2b1d11; 
             border: 1px solid #5c3a21;
             display: flex;
@@ -91,7 +89,7 @@
         .casilla-img-container img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* ¡Foto entera sin cortar cabezas! */
+            object-fit: contain;
         }
         .casilla-img-placeholder {
             color: #f4ebd0;
@@ -151,7 +149,7 @@
     <div class="libro-container">
         <div class="header-guia">
             <h1>PÁGINAS BRONCEADAS — DIRECTORIO 2026</h1>
-            <p>BonusYA! VentaniYA! MDP</p>
+            <p id="estado-conexion">Conectando a Firebase...</p>
         </div>
 
         <div class="grilla-directorio" id="grilla-completa">
@@ -162,12 +160,12 @@
                 <div class="casilla-img-container" id="img-container-0">
                     <span class="casilla-img-placeholder" id="lbl-ph-0">[ Subir Foto ]</span>
                 </div>
-                <input type="text" id="text-0" placeholder="Título / Anuncio...">
+                <input type="text" id="text-0" placeholder="Título / Anuncio..." onchange="guardarEnFirebase(0)">
                 <div class="casilla-datos">
                     <strong>ID:</strong> REF-2026-X01<br>
                     <strong>GEO:</strong> MDP
                 </div>
-                <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="alojarImagen(event, 0)">
+                <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="subirImagenFirebase(event, 0)">
                 <button class="btn-accion-mini" style="background:#0077b6;" onclick="descargarMilisegundo(0)">💾 Descargar HD</button>
             </div>
 
@@ -177,42 +175,42 @@
                 <div class="casilla-img-container" id="img-container-1">
                     <span class="casilla-img-placeholder" id="lbl-ph-1">[ Subir Foto ]</span>
                 </div>
-                <input type="text" id="text-1" placeholder="Título / Anuncio...">
+                <input type="text" id="text-1" placeholder="Título / Anuncio..." onchange="guardarEnFirebase(1)">
                 <div class="casilla-datos">
                     <strong>ID:</strong> MDP-1001-X02<br>
                     <strong>GEO:</strong> MDP
                 </div>
-                <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="alojarImagen(event, 1)">
+                <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="subirImagenFirebase(event, 1)">
                 <button class="btn-accion-mini" style="background:#bc6c25;" onclick="descargarAtomico(1)">💾 Descargar HD</button>
             </div>
 
-            <!-- Casilleros 3 al 10: Avisos comerciales compactos -->
+            <!-- Casilleros 3 al 10: Avisos comerciales conectados a Firestore -->
             <script>
-                for(let i = 0; i < 8; i++) {
-                    let numID = "2026-X0" + (i + 3);
+                for(let i = 2; i < 10; i++) {
+                    let numID = "2026-X0" + (i + 1);
                     document.write(`
                         <div class="casilla">
                             <div class="casilla-titulo">Aviso Comercial</div>
-                            <div class="casilla-img-container" id="fijo-container-${i}">
-                                <span class="casilla-img-placeholder" id="fijo-lbl-${i}">[ Espacio Libre ]</span>
+                            <div class="casilla-img-container" id="img-container-${i}">
+                                <span class="casilla-img-placeholder" id="lbl-ph-${i}">[ Espacio Libre ]</span>
                             </div>
                             
                             <!-- Vista Estática de Texto -->
                             <div id="vista-txt-${i}" class="casilla-datos">
-                                <strong id="lbl-title-${i}">Aviso ${i+1}</strong><br>
+                                <strong id="lbl-title-${i}">Aviso ${i-1}</strong><br>
                                 <span id="lbl-desc-${i}" style="color:#5c3a21;">Oferta Especial</span><br>
                                 <strong>ID:</strong> ${numID}
                             </div>
 
-                            <!-- Panel Oculto para Modificar en Caliente -->
+                            <!-- Panel Oculto para Modificar -->
                             <div id="panel-edit-${i}" class="modo-edicion">
-                                <input type="text" id="fijo-title-${i}" value="Aviso ${i+1}" placeholder="Título...">
+                                <input type="text" id="fijo-title-${i}" value="Aviso ${i-1}" placeholder="Título...">
                                 <input type="text" id="fijo-desc-${i}" value="Oferta Especial" placeholder="Detalle / Monto...">
                             </div>
 
-                            <input type="file" accept="image/*" style="font-size:0.4rem; margin-top:2px;" onchange="subirAvisoFijo(event, ${i})">
+                            <input type="file" accept="image/*" style="font-size:0.4rem; margin-top:2px;" onchange="subirImagenFirebase(event, ${i})">
                             
-                            <button class="btn-accion-mini" id="btn-edit-${i}" style="background:#a68a67;" onclick="toggleEdicion(${i})">✏️ Editar</button>
+                            <button class="btn-accion-mini" id="btn-edit-${i}" style="background:#a68a67;" onclick="toggleEdicion(${i}, '${numID}')">✏️ Editar</button>
                             <button class="btn-accion-mini" style="background:#5c3a21;" onclick="descargarFijo(${i}, '${numID}')">💾 Descargar HD</button>
                         </div>
                     `);
@@ -221,16 +219,16 @@
         </div>
 
         <div class="footer-guia">
-            © 2026 BonusYA! VentaniYA! MDP — Sistema de Venta Ágil
+            © 2026 BonusYA! VentaniYA! MDP — Sincronizado en la Nube
         </div>
     </div>
 
     <canvas id="canvas-output" width="800" height="600"></canvas>
 
-    <!-- Firebase SDKs -->
+    <!-- Conexión a Firebase Firestore -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCQEQ21YmByod4CUYpLPnvyiyK_yPAS76w",
@@ -243,56 +241,114 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        console.log("Firebase conectado correctamente en VentaniYA!");
+        const db = getFirestore(app);
+        window.db = db;
+        window.docRefLib = doc;
+        window.setDocLib = setDoc;
+        window.getDocLib = getDoc;
+
+        document.getElementById('estado-conexion').innerText = "BonusYA! VentaniYA! MDP — Nube Activa";
+        
+        // Cargar datos guardados al iniciar
+        cargarDatosFirebase();
     </script>
 
     <script>
-        let imagenesSubidas = {};
-        let imagenesFijas = {};
+        let imagenesCargadas = {};
         let estadosEdicion = {};
 
-        function alojarImagen(event, index) {
+        // Guardar cambios en Firestore
+        async function guardarEnFirebase(index) {
+            try {
+                let titulo = "";
+                let desc = "";
+                let msgTxt = "";
+
+                if(index === 0 || index === 1) {
+                    msgTxt = document.getElementById(`text-${index}`).value;
+                } else {
+                    titulo = document.getElementById(`fijo-title-${index}`).value;
+                    desc = document.getElementById(`fijo-desc-${index}`).value;
+                }
+
+                let imgUrl = imagenesCargadas[index] || "";
+
+                const docRef = window.docRefLib(window.db, "directorio", `casilla_${index}`);
+                await window.setDocLib(docRef, {
+                    titulo: titulo,
+                    desc: desc,
+                    msg: msgTxt,
+                    imagen: imgUrl
+                }, { merge: true });
+
+                console.log(`Casilla ${index} guardada en Firebase.`);
+            } catch (err) {
+                console.error("Error al guardar en Firebase:", err);
+            }
+        }
+
+        // Cargar datos al iniciar la página (evita que se borre con F5)
+        async function cargarDatosFirebase() {
+            try {
+                for(let i = 0; i < 10; i++) {
+                    const docRef = window.docRefLib(window.db, "directorio", `casilla_${i}`);
+                    const docSnap = await window.getDocLib(docRef);
+
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        
+                        if(i === 0 || i === 1) {
+                            if(data.msg) document.getElementById(`text-${i}`).value = data.msg;
+                        } else {
+                            if(data.titulo) {
+                                document.getElementById(`fijo-title-${i}`).value = data.titulo;
+                                document.getElementById(`lbl-title-${i}`).innerText = data.titulo;
+                            }
+                            if(data.desc) {
+                                document.getElementById(`fijo-desc-${i}`).value = data.desc;
+                                document.getElementById(`lbl-desc-${i}`).innerText = data.desc;
+                            }
+                        }
+
+                        if(data.imagen) {
+                            imagenesCargadas[i] = data.imagen;
+                            const containerId = (i === 0 || i === 1) ? `img-container-${i}` : `fijo-container-${i}`;
+                            const container = document.getElementById(containerId);
+                            container.innerHTML = '';
+                            const tagImg = document.createElement('img');
+                            tagImg.src = data.imagen;
+                            container.appendChild(tagImg);
+                        }
+                    }
+                }
+                console.log("Datos recuperados de Firebase con éxito.");
+            } catch (err) {
+                console.error("Error cargando de Firebase:", err);
+            }
+        }
+
+        // Subir imagen y transformarla a base64 para persistir en Firestore
+        function subirImagenFirebase(event, index) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        imagenesSubidas[index] = img;
-                        const container = document.getElementById(`img-container-${index}`);
-                        container.innerHTML = '';
-                        const tagImg = document.createElement('img');
-                        tagImg.src = e.target.result;
-                        container.appendChild(tagImg);
-                    }
-                    img.src = e.target.result;
+                    imagenesCargadas[index] = e.target.result;
+                    const containerId = (index === 0 || index === 1) ? `img-container-${index}` : `fijo-container-${index}`;
+                    const container = document.getElementById(containerId);
+                    container.innerHTML = '';
+                    const tagImg = document.createElement('img');
+                    tagImg.src = e.target.result;
+                    container.appendChild(tagImg);
+
+                    // Guardar automáticamente en Firebase
+                    guardarEnFirebase(index);
                 }
                 reader.readAsDataURL(file);
             }
         }
 
-        function subirAvisoFijo(event, index) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        imagenesFijas[index] = img;
-                        const container = document.getElementById(`fijo-container-${index}`);
-                        container.innerHTML = '';
-                        const tagImg = document.createElement('img');
-                        tagImg.src = e.target.result;
-                        container.appendChild(tagImg);
-                    }
-                    img.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function toggleEdicion(index) {
+        function toggleEdicion(index, idReg) {
             const panel = document.getElementById(`panel-edit-${index}`);
             const vista = document.getElementById(`vista-txt-${index}`);
             const btn = document.getElementById(`btn-edit-${index}`);
@@ -317,89 +373,100 @@
                 btn.innerText = '✏️ Editar';
                 btn.style.background = '#a68a67';
                 estadosEdicion[index] = false;
+
+                // Guardar cambios en Firebase al cerrar edición
+                guardarEnFirebase(index);
             }
         }
 
         function descargarMilisegundo(index) {
-            const imgUser = imagenesSubidas[index];
-            if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
+            const imgSrc = imagenesCargadas[index];
+            if (!imgSrc) { alert("Primero subí una foto en este casillero."); return; }
 
-            const canvas = document.getElementById('canvas-output');
-            const ctx = canvas.getContext('2d');
-            const ahora = new Date();
-            const timestamp = ahora.toLocaleDateString() + ' ' + ahora.toLocaleTimeString() + '.' + String(ahora.getMilliseconds()).padStart(3, '0');
-            const msgUsuario = document.getElementById('text-0').value;
-            const hashUnico = 'HASH-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+            const imgUser = new Image();
+            imgUser.onload = function() {
+                const canvas = document.getElementById('canvas-output');
+                const ctx = canvas.getContext('2d');
+                const ahora = new Date();
+                const timestamp = ahora.toLocaleDateString() + ' ' + ahora.toLocaleTimeString() + '.' + String(ahora.getMilliseconds()).padStart(3, '0');
+                const msgUsuario = document.getElementById('text-0').value;
+                const hashUnico = 'HASH-' + Math.random().toString(36).substring(2, 9).toUpperCase();
 
-            ctx.fillStyle = '#1a1008';
-            ctx.fillRect(0, 0, 800, 600);
-            dibujarImagenContain(ctx, imgUser, 50, 80, 700, 360);
+                ctx.fillStyle = '#1a1008';
+                ctx.fillRect(0, 0, 800, 600);
+                dibujarImagenContain(ctx, imgUser, 50, 80, 700, 360);
 
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = "#00f2ff";
-            ctx.fillStyle = "#00f2ff";
-            ctx.font = 'bold 28px "Orbitron", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText("VÍA DEL MILISEGUNDO", 400, 45);
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "#00f2ff";
+                ctx.fillStyle = "#00f2ff";
+                ctx.font = 'bold 28px "Orbitron", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText("VÍA DEL MILISEGUNDO", 400, 45);
 
-            ctx.font = '16px "Courier Prime", monospace';
-            ctx.fillText(timestamp, 400, 68);
+                ctx.font = '16px "Courier Prime", monospace';
+                ctx.fillText(timestamp, 400, 68);
 
-            if(msgUsuario) {
-                ctx.font = 'italic 16px "Courier Prime", monospace';
+                if(msgUsuario) {
+                    ctx.font = 'italic 16px "Courier Prime", monospace';
+                    ctx.fillStyle = "#ffffff";
+                    ctx.shadowBlur = 0;
+                    ctx.fillText(`"${msgUsuario}"`, 400, 475);
+                }
+
+                ctx.font = '14px "Courier Prime", monospace';
                 ctx.fillStyle = "#ffffff";
-                ctx.shadowBlur = 0;
-                ctx.fillText(`"${msgUsuario}"`, 400, 475);
+                ctx.fillText(`ID: REF-2026-X01 | ${hashUnico} | MAR DEL PLATA`, 400, 575);
+
+                ctx.strokeStyle = "#00f2ff";
+                ctx.lineWidth = 3;
+                ctx.strokeRect(15, 15, 770, 570);
+
+                dispararDescarga(canvas, 'Estampa_Via_Milisegundo.png');
             }
-
-            ctx.font = '14px "Courier Prime", monospace';
-            ctx.fillStyle = "#ffffff";
-            ctx.fillText(`ID: REF-2026-X01 | ${hashUnico} | MAR DEL PLATA`, 400, 575);
-
-            ctx.strokeStyle = "#00f2ff";
-            ctx.lineWidth = 3;
-            ctx.strokeRect(15, 15, 770, 570);
-
-            dispararDescarga(canvas, 'Estampa_Via_Milisegundo.png');
+            imgUser.src = imgSrc;
         }
 
         function descargarAtomico(index) {
-            const imgUser = imagenesSubidas[index];
-            if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
+            const imgSrc = imagenesCargadas[index];
+            if (!imgSrc) { alert("Primero subí una foto en este casillero."); return; }
 
-            const canvas = document.getElementById('canvas-output');
-            const ctx = canvas.getContext('2d');
-            const ahora = new Date().toLocaleDateString();
-            const msgUsuario = document.getElementById('text-1').value;
+            const imgUser = new Image();
+            imgUser.onload = function() {
+                const canvas = document.getElementById('canvas-output');
+                const ctx = canvas.getContext('2d');
+                const ahora = new Date().toLocaleDateString();
+                const msgUsuario = document.getElementById('text-1').value;
 
-            ctx.fillStyle = '#f4ebd0';
-            ctx.fillRect(0, 0, 800, 600);
-            dibujarImagenContain(ctx, imgUser, 50, 45, 700, 370);
+                ctx.fillStyle = '#f4ebd0';
+                ctx.fillRect(0, 0, 800, 600);
+                dibujarImagenContain(ctx, imgUser, 50, 45, 700, 370);
 
-            ctx.strokeStyle = '#bc6c25';
-            ctx.lineWidth = 6;
-            ctx.strokeRect(35, 30, 730, 540);
+                ctx.strokeStyle = '#bc6c25';
+                ctx.lineWidth = 6;
+                ctx.strokeRect(35, 30, 730, 540);
 
-            ctx.fillStyle = '#2c1810';
-            ctx.font = 'bold 20px "Special Elite", cursive';
-            ctx.textAlign = 'center';
-            ctx.fillText("VENTANIYA! MDP 1001 — SELLO ATÓMICO", 400, 450);
+                ctx.fillStyle = '#2c1810';
+                ctx.font = 'bold 20px "Special Elite", cursive';
+                ctx.textAlign = 'center';
+                ctx.fillText("VENTANIYA! MDP 1001 — SELLO ATÓMICO", 400, 450);
 
-            if(msgUsuario) {
-                ctx.font = 'italic 16px "Courier Prime", monospace';
-                ctx.fillText(`"${msgUsuario}"`, 400, 485);
+                if(msgUsuario) {
+                    ctx.font = 'italic 16px "Courier Prime", monospace';
+                    ctx.fillText(`"${msgUsuario}"`, 400, 485);
+                }
+
+                ctx.font = '14px "Courier Prime", monospace';
+                ctx.fillText(`REGISTRO: MDP-1001-X02 | FECHA: ${ahora} | MAR DEL PLATA`, 400, 535);
+
+                dispararDescarga(canvas, 'Sello_Atomico_VentaniYA_1001.png');
             }
-
-            ctx.font = '14px "Courier Prime", monospace';
-            ctx.fillText(`REGISTRO: MDP-1001-X02 | FECHA: ${ahora} | MAR DEL PLATA`, 400, 535);
-
-            dispararDescarga(canvas, 'Sello_Atomico_VentaniYA_1001.png');
+            imgUser.src = imgSrc;
         }
 
         function descargarFijo(index, idReg) {
             const canvas = document.getElementById('canvas-output');
             const ctx = canvas.getContext('2d');
-            const imgPersonalizada = imagenesFijas[index];
+            const imgSrc = imagenesCargadas[index];
             const titulo = document.getElementById(`fijo-title-${index}`).value || "Aviso Comercial";
             const detalle = document.getElementById(`fijo-desc-${index}`).value || "Beneficio BonusYA!";
 
@@ -410,8 +477,13 @@
             ctx.lineWidth = 6;
             ctx.strokeRect(40, 40, 720, 520);
 
-            if (imgPersonalizada) {
-                dibujarImagenContain(ctx, imgPersonalizada, 70, 70, 660, 310);
+            if (imgSrc) {
+                const imgPersonalizada = new Image();
+                imgPersonalizada.onload = function() {
+                    dibujarImagenContain(ctx, imgPersonalizada, 70, 70, 660, 310);
+                    terminarCanvasFijo(ctx, titulo, detalle, idReg, canvas);
+                }
+                imgPersonalizada.src = imgSrc;
             } else {
                 ctx.fillStyle = '#e3d2b0';
                 ctx.fillRect(80, 70, 640, 310);
@@ -426,8 +498,12 @@
 
                 ctx.font = 'italic 20px "Courier Prime", monospace';
                 ctx.fillText(detalle, 400, 250);
-            }
 
+                terminarCanvasFijo(ctx, titulo, detalle, idReg, canvas);
+            }
+        }
+
+        function terminarCanvasFijo(ctx, titulo, detalle, idReg, canvas) {
             ctx.fillStyle = '#2c1810';
             ctx.font = 'bold 16px "Courier Prime", monospace';
             ctx.textAlign = 'center';
