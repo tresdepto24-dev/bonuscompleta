@@ -11,54 +11,54 @@
             background-color: #2b1d11;
             color: #2c1810;
             margin: 0;
-            padding: 10px;
+            padding: 4px;
             display: flex;
             justify-content: center;
         }
         .libro-container {
             width: 100%;
-            max-width: 600px; /* Adaptado para que luzca perfecto en celu y pantallas verticales */
+            max-width: 480px; /* Reducido a 480px para que encaje exacto en Google Sites sin desbordar */
             background: #f4ebd0;
-            border: 4px solid #4a2e18;
-            padding: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+            border: 3px solid #4a2e18;
+            padding: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.7);
             border-radius: 4px;
             box-sizing: border-box;
         }
         .header-guia {
             text-align: center;
             border-bottom: 2px dashed #4a2e18;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
         }
         .header-guia h1 {
             font-family: 'Special Elite', cursive;
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin: 0;
             color: #2c1810;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .header-guia p {
-            font-size: 0.75rem;
-            margin: 4px 0 0 0;
+            font-size: 0.65rem;
+            margin: 2px 0 0 0;
             color: #5c3a21;
         }
-        /* Grilla vertical de 2 en 2 para celulares y web */
+        /* Grilla compacta de 2 columnas pensada para celus y Sites */
         .grilla-directorio {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 6px;
         }
         .casilla {
             background: #fdfbf7;
             border: 2px solid #5c3a21;
-            padding: 8px;
+            padding: 6px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            font-size: 0.65rem;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-            border-radius: 3px;
+            font-size: 0.6rem;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            border-radius: 2px;
         }
         .casilla.interactiva-1 {
             background: #faedcd;
@@ -70,17 +70,17 @@
         }
         .casilla-titulo {
             font-family: 'Special Elite', cursive;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-align: center;
             border-bottom: 1px solid #5c3a21;
-            padding-bottom: 3px;
-            margin-bottom: 4px;
+            padding-bottom: 2px;
+            margin-bottom: 3px;
         }
-        /* Contenedor de foto sin recortes (modo contain) */
+        /* Contenedor de foto sin recortes (Contain puro) */
         .casilla-img-container {
             width: 100%;
-            height: 110px;
-            background: #2b1d11; /* Fondo oscuro elegante para evitar espacios vacíos blancos */
+            height: 85px; /* Altura optimizada para que entre de golpe en la pantalla */
+            background: #2b1d11; 
             border: 1px solid #5c3a21;
             display: flex;
             align-items: center;
@@ -91,16 +91,16 @@
         .casilla-img-container img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* ¡Esto evita que le cortemos la cabeza al verdulero! Se ve entera */
+            object-fit: contain; /* ¡Foto entera sin cortar cabezas! */
         }
         .casilla-img-placeholder {
             color: #f4ebd0;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             text-align: center;
         }
         .casilla-datos {
-            margin-top: 4px;
-            line-height: 1.2;
+            margin-top: 3px;
+            line-height: 1.15;
             word-break: break-word;
         }
         .btn-accion-mini {
@@ -108,10 +108,10 @@
             color: #f4ebd0;
             border: none;
             font-family: 'Special Elite', cursive;
-            font-size: 0.6rem;
-            padding: 5px;
+            font-size: 0.55rem;
+            padding: 4px;
             cursor: pointer;
-            margin-top: 4px;
+            margin-top: 3px;
             width: 100%;
             border-radius: 2px;
         }
@@ -120,9 +120,9 @@
         }
         input[type="text"] {
             width: 100%;
-            font-size: 0.6rem;
-            padding: 4px;
-            margin-top: 3px;
+            font-size: 0.55rem;
+            padding: 3px;
+            margin-top: 2px;
             box-sizing: border-box;
             background: #fff;
             border: 1px solid #5c3a21;
@@ -131,16 +131,16 @@
         .modo-edicion {
             display: none;
             background: #f0e2c8;
-            padding: 4px;
+            padding: 3px;
             border: 1px dashed #5c3a21;
-            margin-top: 3px;
+            margin-top: 2px;
         }
         .footer-guia {
             text-align: center;
-            margin-top: 15px;
-            font-size: 0.7rem;
+            margin-top: 10px;
+            font-size: 0.6rem;
             border-top: 2px dashed #4a2e18;
-            padding-top: 8px;
+            padding-top: 5px;
             color: #5c3a21;
         }
         #canvas-output { display: none; }
@@ -151,7 +151,7 @@
     <div class="libro-container">
         <div class="header-guia">
             <h1>PÁGINAS BRONCEADAS — DIRECTORIO 2026</h1>
-            <p>BonusYA! VentaniYA! MDP — Mobile & Sites</p>
+            <p>BonusYA! VentaniYA! MDP</p>
         </div>
 
         <div class="grilla-directorio" id="grilla-completa">
@@ -165,9 +165,9 @@
                 <input type="text" id="text-0" placeholder="Título / Anuncio...">
                 <div class="casilla-datos">
                     <strong>ID:</strong> REF-2026-X01<br>
-                    <strong>GEO:</strong> MAR DEL PLATA
+                    <strong>GEO:</strong> MDP
                 </div>
-                <input type="file" accept="image/*" style="font-size:0.5rem; margin-top:3px;" onchange="alojarImagen(event, 0)">
+                <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="alojarImagen(event, 0)">
                 <button class="btn-accion-mini" style="background:#0077b6;" onclick="descargarMilisegundo(0)">💾 Descargar HD</button>
             </div>
 
@@ -180,19 +180,19 @@
                 <input type="text" id="text-1" placeholder="Título / Anuncio...">
                 <div class="casilla-datos">
                     <strong>ID:</strong> MDP-1001-X02<br>
-                    <strong>GEO:</strong> MAR DEL PLATA
+                    <strong>GEO:</strong> MDP
                 </div>
-                <input type="file" accept="image/*" style="font-size:0.5rem; margin-top:3px;" onchange="alojarImagen(event, 1)">
+                <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="alojarImagen(event, 1)">
                 <button class="btn-accion-mini" style="background:#bc6c25;" onclick="descargarAtomico(1)">💾 Descargar HD</button>
             </div>
 
-            <!-- Casilleros 3 al 10: Avisos comerciales en grilla de 2 columnas -->
+            <!-- Casilleros 3 al 10: Avisos comerciales compactos -->
             <script>
                 for(let i = 0; i < 8; i++) {
                     let numID = "2026-X0" + (i + 3);
                     document.write(`
                         <div class="casilla">
-                            <div class="casilla-titulo">Aviso Publicitario</div>
+                            <div class="casilla-titulo">Aviso Comercial</div>
                             <div class="casilla-img-container" id="fijo-container-${i}">
                                 <span class="casilla-img-placeholder" id="fijo-lbl-${i}">[ Espacio Libre ]</span>
                             </div>
@@ -200,17 +200,17 @@
                             <!-- Vista Estática de Texto -->
                             <div id="vista-txt-${i}" class="casilla-datos">
                                 <strong id="lbl-title-${i}">Aviso ${i+1}</strong><br>
-                                <span id="lbl-desc-${i}" style="color:#5c3a21;">Oferta Especial MDP</span><br>
+                                <span id="lbl-desc-${i}" style="color:#5c3a21;">Oferta Especial</span><br>
                                 <strong>ID:</strong> ${numID}
                             </div>
 
                             <!-- Panel Oculto para Modificar en Caliente -->
                             <div id="panel-edit-${i}" class="modo-edicion">
                                 <input type="text" id="fijo-title-${i}" value="Aviso ${i+1}" placeholder="Título...">
-                                <input type="text" id="fijo-desc-${i}" value="Oferta Especial MDP" placeholder="Detalle / Monto...">
+                                <input type="text" id="fijo-desc-${i}" value="Oferta Especial" placeholder="Detalle / Monto...">
                             </div>
 
-                            <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:3px;" onchange="subirAvisoFijo(event, ${i})">
+                            <input type="file" accept="image/*" style="font-size:0.4rem; margin-top:2px;" onchange="subirAvisoFijo(event, ${i})">
                             
                             <button class="btn-accion-mini" id="btn-edit-${i}" style="background:#a68a67;" onclick="toggleEdicion(${i})">✏️ Editar</button>
                             <button class="btn-accion-mini" style="background:#5c3a21;" onclick="descargarFijo(${i}, '${numID}')">💾 Descargar HD</button>
@@ -292,7 +292,6 @@
             }
         }
 
-        // Alternar Modo Edición
         function toggleEdicion(index) {
             const panel = document.getElementById(`panel-edit-${index}`);
             const vista = document.getElementById(`vista-txt-${index}`);
@@ -303,7 +302,7 @@
             if (!editando) {
                 panel.style.display = 'block';
                 vista.style.display = 'none';
-                btn.innerText = '💾 Guardar Cambios';
+                btn.innerText = '💾 Guardar';
                 btn.style.background = '#bc6c25';
                 estadosEdicion[index] = true;
             } else {
@@ -321,7 +320,6 @@
             }
         }
 
-        // Descarga 1: Vía del Milisegundo (Mantiene proporción completa sin recortar)
         function descargarMilisegundo(index) {
             const imgUser = imagenesSubidas[index];
             if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
@@ -335,8 +333,6 @@
 
             ctx.fillStyle = '#1a1008';
             ctx.fillRect(0, 0, 800, 600);
-
-            // Dibujar imagen ajustada completa (Contain)
             dibujarImagenContain(ctx, imgUser, 50, 80, 700, 360);
 
             ctx.shadowBlur = 10;
@@ -367,7 +363,6 @@
             dispararDescarga(canvas, 'Estampa_Via_Milisegundo.png');
         }
 
-        // Descarga 2: Sello Atómico VentaniYA! MDP 1001
         function descargarAtomico(index) {
             const imgUser = imagenesSubidas[index];
             if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
@@ -379,7 +374,6 @@
 
             ctx.fillStyle = '#f4ebd0';
             ctx.fillRect(0, 0, 800, 600);
-            
             dibujarImagenContain(ctx, imgUser, 50, 45, 700, 370);
 
             ctx.strokeStyle = '#bc6c25';
@@ -402,7 +396,6 @@
             dispararDescarga(canvas, 'Sello_Atomico_VentaniYA_1001.png');
         }
 
-        // Descarga 3: Avisos Fijos / Comerciales editables
         function descargarFijo(index, idReg) {
             const canvas = document.getElementById('canvas-output');
             const ctx = canvas.getContext('2d');
@@ -449,7 +442,6 @@
             dispararDescarga(canvas, `Aviso_${idReg}.png`);
         }
 
-        // Función matemática para adaptar la foto completa al canvas sin recortar (Contain)
         function dibujarImagenContain(ctx, img, x, y, anchoMax, altoMax) {
             const hRatio = anchoMax / img.width;
             const vRatio = altoMax / img.height;
