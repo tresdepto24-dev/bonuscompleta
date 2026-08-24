@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Páginas Bronceadas — Directorio VentaniYA! 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Orbitron:wght@700&display=stylesheet" rel="stylesheet">
     <style>
         body {
             font-family: 'Courier Prime', monospace;
@@ -75,7 +75,7 @@
         }
         .casilla-img {
             width: 100%;
-            height: 80px;
+            height: 75px;
             background: #e3d2b0;
             border: 1px solid #5c3a21;
             background-size: cover;
@@ -98,10 +98,10 @@
             color: #f4ebd0;
             border: none;
             font-family: 'Special Elite', cursive;
-            font-size: 0.65rem;
-            padding: 5px;
+            font-size: 0.6rem;
+            padding: 4px;
             cursor: pointer;
-            margin-top: 4px;
+            margin-top: 3px;
             width: 100%;
             border-radius: 2px;
         }
@@ -117,6 +117,13 @@
             background: #fff;
             border: 1px solid #5c3a21;
             font-family: 'Courier Prime', monospace;
+        }
+        .modo-edicion {
+            display: none;
+            background: #f0e2c8;
+            padding: 4px;
+            border: 1px dashed #5c3a21;
+            margin-top: 3px;
         }
         .footer-guia {
             text-align: center;
@@ -165,7 +172,7 @@
                 <button class="btn-accion-mini" style="background:#bc6c25;" onclick="descargarAtomico(1)">💾 Descargar HD</button>
             </div>
 
-            <!-- Casilleros 3 al 10: Avisos comerciales editables (Libres / Pelados) -->
+            <!-- Casilleros 3 al 10: Avisos comerciales con Modo Edición integrado -->
             <script>
                 for(let i = 0; i < 8; i++) {
                     let numID = "2026-X0" + (i + 3);
@@ -175,13 +182,24 @@
                             <div class="casilla-img" id="fijo-img-${i}">
                                 <span id="fijo-lbl-${i}">[ Espacio Libre ]</span>
                             </div>
-                            <input type="text" id="fijo-title-${i}" placeholder="Título del aviso..." value="Aviso ${i+1}">
-                            <input type="text" id="fijo-desc-${i}" placeholder="Beneficio / Monto..." value="Oferta Especial MDP">
-                            <div class="casilla-datos" style="margin-top:2px;">
+                            
+                            <!-- Vista Estática de Texto -->
+                            <div id="vista-txt-${i}" class="casilla-datos">
+                                <strong id="lbl-title-${i}">Aviso ${i+1}</strong><br>
+                                <span id="lbl-desc-${i}" style="color:#5c3a21;">Oferta Especial MDP</span><br>
                                 <strong>ID:</strong> ${numID}
                             </div>
-                            <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="subirAvisoFijo(event, ${i})">
-                            <button class="btn-accion-mini" style="background:#8c7b6c;" onclick="descargarFijo(${i}, '${numID}')">💾 Descargar</button>
+
+                            <!-- Panel Oculto para Modificar en Caliente -->
+                            <div id="panel-edit-${i}" class="modo-edicion">
+                                <input type="text" id="fijo-title-${i}" value="Aviso ${i+1}" placeholder="Título...">
+                                <input type="text" id="fijo-desc-${i}" value="Oferta Especial MDP" placeholder="Detalle / Monto...">
+                            </div>
+
+                            <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:3px;" onchange="subirAvisoFijo(event, ${i})">
+                            
+                            <button class="btn-accion-mini" id="btn-edit-${i}" style="background:#a68a67;" onclick="toggleEdicion(${i})">✏️ Editar</button>
+                            <button class="btn-accion-mini" style="background:#5c3a21;" onclick="descargarFijo(${i}, '${numID}')">💾 Descargar HD</button>
                         </div>
                     `);
                 }
@@ -218,6 +236,7 @@
     <script>
         let imagenesSubidas = {};
         let imagenesFijas = {};
+        let estadosEdicion = {};
 
         function alojarImagen(event, index) {
             const file = event.target.files[0];
@@ -256,7 +275,38 @@
             }
         }
 
-        // Descarga 1: Vía del Milisegundo (Estampado Hash y Milisegundos exactos)
+        // Alternar Modo Edición en cada casillero
+        function toggleEdicion(index) {
+            const panel = document.getElementById(`panel-edit-${index}`);
+            const vista = document.getElementById(`vista-txt-${index}`);
+            const btn = document.getElementById(`btn-edit-${index}`);
+            
+            let editando = estadosEdicion[index] || false;
+
+            if (!editando) {
+                // Abrir edición
+                panel.style.display = 'block';
+                vista.style.display = 'none';
+                btn.innerText = '💾 Guardar Cambios';
+                btn.style.background = '#bc6c25';
+                estadosEdicion[index] = true;
+            } else {
+                // Guardar y refrescar texto visible
+                const nuevoTitulo = document.getElementById(`fijo-title-${index}`).value;
+                const nuevoDesc = document.getElementById(`fijo-desc-${index}`).value;
+
+                document.getElementById(`lbl-title-${index}`).innerText = nuevoTitulo;
+                document.getElementById(`lbl-desc-${index}`).innerText = nuevoDesc;
+
+                panel.style.display = 'none';
+                vista.style.display = 'block';
+                btn.innerText = '✏️ Editar';
+                btn.style.background = '#a68a67';
+                estadosEdicion[index] = false;
+            }
+        }
+
+        // Descarga 1: Vía del Milisegundo
         function descargarMilisegundo(index) {
             const imgUser = imagenesSubidas[index];
             if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
