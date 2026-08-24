@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Páginas Bronceadas — Directorio de Colección 2026</title>
+    <title>Páginas Bronceadas — Directorio VentaniYA! 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -42,7 +42,6 @@
             margin: 5px 0 0 0;
             color: #5c3a21;
         }
-        /* Grilla de 10 casilleros (2 filas x 5 columnas) */
         .grilla-directorio {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -76,7 +75,7 @@
         }
         .casilla-img {
             width: 100%;
-            height: 90px;
+            height: 80px;
             background: #e3d2b0;
             border: 1px solid #5c3a21;
             background-size: cover;
@@ -88,6 +87,7 @@
             font-size: 0.6rem;
             color: #5c3a21;
             box-sizing: border-box;
+            position: relative;
         }
         .casilla-datos {
             margin-top: 4px;
@@ -134,17 +134,16 @@
     <div class="libro-container">
         <div class="header-guia">
             <h1>PÁGINAS BRONCEADAS — DIRECTORIO DE COLECCIÓN 2026</h1>
-            <p>Su Registro Histórico y Caja de Ahorros BonusCom</p>
+            <p>BonusYA! VentaniYA! MDP — Registro Rápido de Avisos y Beneficios</p>
         </div>
 
-        <!-- Grilla de 10 Avisos / Casilleros -->
         <div class="grilla-directorio" id="grilla-completa">
             
-            <!-- Casillero Interactivo 1: Vía del Milisegundo -->
+            <!-- Casillero 1: Vía del Milisegundo -->
             <div class="casilla interactiva-1">
                 <div class="casilla-titulo" style="color:#0077b6;">Vía del Milisegundo</div>
                 <div class="casilla-img" id="img-slot-0">[ Subir Foto ]</div>
-                <input type="text" id="text-0" placeholder="Mensaje en estampa...">
+                <input type="text" id="text-0" placeholder="Título / Anuncio...">
                 <div class="casilla-datos">
                     <strong>ID:</strong> REF-2026-X01<br>
                     <strong>GEO:</strong> MAR DEL PLATA
@@ -153,46 +152,36 @@
                 <button class="btn-accion-mini" style="background:#0077b6;" onclick="descargarMilisegundo(0)">💾 Descargar HD</button>
             </div>
 
-            <!-- Casillero Interactivo 2: Sello Vintage VentaniYA! -->
+            <!-- Casillero 2: Sello Atómico VentaniYA! MDP 1001 -->
             <div class="casilla interactiva-2">
-                <div class="casilla-titulo" style="color:#bc6c25;">VentaniYA! Universos</div>
+                <div class="casilla-titulo" style="color:#bc6c25;">Sello Atómico 1001</div>
                 <div class="casilla-img" id="img-slot-1">[ Subir Foto ]</div>
-                <input type="text" id="text-1" placeholder="Mensaje en estampa...">
+                <input type="text" id="text-1" placeholder="Título / Anuncio...">
                 <div class="casilla-datos">
-                    <strong>ID:</strong> REF-2026-X02<br>
+                    <strong>ID:</strong> MDP-1001-X02<br>
                     <strong>GEO:</strong> MAR DEL PLATA
                 </div>
                 <input type="file" accept="image/*" style="font-size:0.5rem; margin-top:3px;" onchange="alojarImagen(event, 1)">
-                <button class="btn-accion-mini" style="background:#bc6c25;" onclick="descargarVintage(1)">💾 Descargar HD</button>
+                <button class="btn-accion-mini" style="background:#bc6c25;" onclick="descargarAtomico(1)">💾 Descargar HD</button>
             </div>
 
-            <!-- Casilleros Fijos de la Guía (Con su botón para subir PNG personalizado) -->
+            <!-- Casilleros 3 al 10: Avisos comerciales editables (Libres / Pelados) -->
             <script>
-                const guiasFijas = [
-                    {titulo: "Café de la Costa", desc: "Descuento 15%"},
-                    {titulo: "Hotel Provincial", desc: "Aviso Histórico"},
-                    {titulo: "Tienda El Águila", desc: "Comercio de época"},
-                    {titulo: "Espacio Tiburón", desc: "Postal MDP"},
-                    {titulo: "Rincón Felino", desc: "Archivo Histórico"},
-                    {titulo: "Playa Grande Surf", desc: "Colección Verano"},
-                    {titulo: "Puerto Histórico", desc: "Edición Limitada"},
-                    {titulo: "Faro Mogotes", desc: "Monumento Sur"}
-                ];
-
-                for(let i = 0; i < guiasFijas.length; i++) {
+                for(let i = 0; i < 8; i++) {
                     let numID = "2026-X0" + (i + 3);
                     document.write(`
                         <div class="casilla">
-                            <div class="casilla-titulo">Aviso Destacado</div>
+                            <div class="casilla-titulo">Aviso Publicitario</div>
                             <div class="casilla-img" id="fijo-img-${i}">
-                                <span id="fijo-txt-${i}">${guiasFijas[i].titulo}</span>
+                                <span id="fijo-lbl-${i}">[ Espacio Libre ]</span>
                             </div>
+                            <input type="text" id="fijo-title-${i}" placeholder="Título del aviso..." value="Aviso ${i+1}">
+                            <input type="text" id="fijo-desc-${i}" placeholder="Beneficio / Monto..." value="Oferta Especial MDP">
                             <div class="casilla-datos" style="margin-top:2px;">
-                                <strong>ID:</strong> ${numID}<br>
-                                <strong>NOTA:</strong> ${guiasFijas[i].desc}
+                                <strong>ID:</strong> ${numID}
                             </div>
                             <input type="file" accept="image/*" style="font-size:0.45rem; margin-top:2px;" onchange="subirAvisoFijo(event, ${i})">
-                            <button class="btn-accion-mini" style="background:#8c7b6c;" onclick="descargarFijo('${guiasFijas[i].titulo}', '${numID}', ${i})">💾 Descargar</button>
+                            <button class="btn-accion-mini" style="background:#8c7b6c;" onclick="descargarFijo(${i}, '${numID}')">💾 Descargar</button>
                         </div>
                     `);
                 }
@@ -200,12 +189,31 @@
         </div>
 
         <div class="footer-guia">
-            © 2026 VentaniYA! Cinemascopado — Guía Interactiva de Colección
+            © 2026 BonusYA! VentaniYA! MDP — Derechos Reservados / Sistema de Venta Ágil
         </div>
     </div>
 
-    <!-- Canvas oculto para procesar las descargas -->
     <canvas id="canvas-output" width="800" height="600"></canvas>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCQEQ21YmByod4CUYpLPnvyiyK_yPAS76w",
+            authDomain: "bonuscompletaya.firebaseapp.com",
+            projectId: "bonuscompletaya",
+            storageBucket: "bonuscompletaya.firebasestorage.app",
+            messagingSenderId: "562867496314",
+            appId: "1:562867496314:web:3e8de6853e4a959c24a2c3",
+            measurementId: "G-6SVQK80K0R"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        console.log("Firebase conectado correctamente en VentaniYA!");
+    </script>
 
     <script>
         let imagenesSubidas = {};
@@ -239,8 +247,8 @@
                         imagenesFijas[index] = img;
                         const slot = document.getElementById(`fijo-img-${index}`);
                         slot.style.backgroundImage = `url(${e.target.result})`;
-                        const txtSpan = document.getElementById(`fijo-txt-${index}`);
-                        if(txtSpan) txtSpan.style.display = 'none'; // Oculta el texto predeterminado al cargar el PNG
+                        const lbl = document.getElementById(`fijo-lbl-${index}`);
+                        if(lbl) lbl.style.display = 'none';
                     }
                     img.src = e.target.result;
                 }
@@ -248,7 +256,7 @@
             }
         }
 
-        // Descarga 1: Estampado tecnológico con la Vía del Milisegundo
+        // Descarga 1: Vía del Milisegundo (Estampado Hash y Milisegundos exactos)
         function descargarMilisegundo(index) {
             const imgUser = imagenesSubidas[index];
             if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
@@ -256,34 +264,34 @@
             const canvas = document.getElementById('canvas-output');
             const ctx = canvas.getContext('2d');
             const ahora = new Date();
-            const timestamp = ahora.toLocaleDateString() + ' ' + ahora.toLocaleTimeString();
+            const timestamp = ahora.toLocaleDateString() + ' ' + ahora.toLocaleTimeString() + '.' + String(ahora.getMilliseconds()).padStart(3, '0');
             const msgUsuario = document.getElementById('text-0').value;
+            const hashUnico = 'HASH-' + Math.random().toString(36).substring(2, 9).toUpperCase();
 
             ctx.fillStyle = '#000';
             ctx.fillRect(0, 0, 800, 600);
             ctx.drawImage(imgUser, 0, 0, 800, 600);
 
-            // Sello neón celeste
             ctx.shadowBlur = 15;
             ctx.shadowColor = "#00f2ff";
             ctx.fillStyle = "#00f2ff";
-            ctx.font = 'bold 36px "Orbitron", sans-serif';
+            ctx.font = 'bold 32px "Orbitron", sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText("VÍA DEL MILISEGUNDO", 400, 70);
+            ctx.fillText("VÍA DEL MILISEGUNDO", 400, 60);
 
-            ctx.font = '22px "Courier Prime", monospace';
-            ctx.fillText(timestamp, 400, 110);
+            ctx.font = '20px "Courier Prime", monospace';
+            ctx.fillText(timestamp, 400, 100);
 
             if(msgUsuario) {
                 ctx.font = 'italic 18px "Courier Prime", monospace';
                 ctx.fillStyle = "#ffffff";
-                ctx.fillText(`"${msgUsuario}"`, 400, 150);
+                ctx.fillText(`"${msgUsuario}"`, 400, 140);
             }
 
-            ctx.font = '16px "Courier Prime", monospace';
+            ctx.font = '15px "Courier Prime", monospace';
             ctx.shadowBlur = 0;
             ctx.fillStyle = "#ffffff";
-            ctx.fillText("ID REGISTRO: REF-2026-X01-BC-MILLI", 400, 565);
+            ctx.fillText(`ID: REF-2026-X01 | ${hashUnico} | MAR DEL PLATA`, 400, 565);
 
             ctx.strokeStyle = "#00f2ff";
             ctx.lineWidth = 3;
@@ -292,8 +300,8 @@
             dispararDescarga(canvas, 'Estampa_Via_Milisegundo.png');
         }
 
-        // Descarga 2: Sello clásico vintage con fecha, mensaje y estética VentaniYA!
-        function descargarVintage(index) {
+        // Descarga 2: Sello Atómico VentaniYA! MDP 1001
+        function descargarAtomico(index) {
             const imgUser = imagenesSubidas[index];
             if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
 
@@ -304,34 +312,35 @@
 
             ctx.fillStyle = '#f4ebd0';
             ctx.fillRect(0, 0, 800, 600);
-            ctx.drawImage(imgUser, 50, 45, 700, 390);
+            ctx.drawImage(imgUser, 50, 45, 700, 370);
 
-            // Sello vintage marrón/sepia de época
-            ctx.strokeStyle = '#5c3a21';
+            ctx.strokeStyle = '#bc6c25';
             ctx.lineWidth = 6;
             ctx.strokeRect(35, 30, 730, 540);
 
             ctx.fillStyle = '#2c1810';
             ctx.font = 'bold 22px "Special Elite", cursive';
             ctx.textAlign = 'center';
-            ctx.fillText("VENTANIYA! — AL UNIVERSO DE OTROS MUNDOS", 400, 465);
+            ctx.fillText("VENTANIYA! MDP 1001 — SELLO ATÓMICO", 400, 455);
 
             if(msgUsuario) {
                 ctx.font = 'italic 18px "Courier Prime", monospace';
-                ctx.fillText(`"${msgUsuario}"`, 400, 500);
+                ctx.fillText(`"${msgUsuario}"`, 400, 490);
             }
 
             ctx.font = '15px "Courier Prime", monospace';
-            ctx.fillText(`REGISTRO: REF-2026-X02 | FECHA: ${ahora}`, 400, 540);
+            ctx.fillText(`REGISTRO: MDP-1001-X02 | FECHA: ${ahora} | MAR DEL PLATA`, 400, 535);
 
-            dispararDescarga(canvas, 'Estampa_VentaniYA_Universo.png');
+            dispararDescarga(canvas, 'Sello_Atomico_VentaniYA_1001.png');
         }
 
-        // Descarga Limpia para los avisos fijos (si subiste tu PNG, lo usa; si no, genera la lámina clásica)
-        function descargarFijo(titulo, idReg, index) {
+        // Descarga 3: Avisos Fijos / Comerciales editables (Casilleros 3 al 10)
+        function descargarFijo(index, idReg) {
             const canvas = document.getElementById('canvas-output');
             const ctx = canvas.getContext('2d');
             const imgPersonalizada = imagenesFijas[index];
+            const titulo = document.getElementById(`fijo-title-${index}`).value || "Aviso Comercial";
+            const detalle = document.getElementById(`fijo-desc-${index}`).value || "Beneficio BonusYA!";
 
             ctx.fillStyle = '#f4ebd0';
             ctx.fillRect(0, 0, 800, 600);
@@ -341,38 +350,35 @@
             ctx.strokeRect(40, 40, 720, 520);
 
             if (imgPersonalizada) {
-                // Si cargaste tu propio PNG para este aviso, lo imprime en grande en alta definición
-                ctx.drawImage(imgPersonalizada, 80, 100, 640, 380);
+                ctx.drawImage(imgPersonalizada, 80, 90, 640, 320);
             } else {
-                // Lámina clásica por defecto
-                ctx.fillStyle = '#2c1810';
-                ctx.font = 'bold 32px "Special Elite", cursive';
-                ctx.textAlign = 'center';
-                ctx.fillText(titulo.toUpperCase(), 400, 110);
-
-                ctx.font = '20px "Courier Prime", monospace';
-                ctx.fillText("AVISO DESTACADO DE ARCHIVO — GUÍA 2026", 400, 160);
-
                 ctx.fillStyle = '#e3d2b0';
-                ctx.fillRect(150, 200, 500, 220);
+                ctx.fillRect(100, 100, 600, 300);
                 ctx.strokeStyle = '#5c3a21';
                 ctx.lineWidth = 2;
-                ctx.strokeRect(150, 200, 500, 220);
+                ctx.strokeRect(100, 100, 600, 300);
 
-                ctx.fillStyle = '#5c3a21';
+                ctx.fillStyle = '#2c1810';
+                ctx.font = 'bold 30px "Special Elite", cursive';
+                ctx.textAlign = 'center';
+                ctx.fillText(titulo.toUpperCase(), 400, 200);
+
                 ctx.font = 'italic 22px "Courier Prime", monospace';
-                ctx.fillText(`[ ${titulo} ]`, 400, 315);
+                ctx.fillText(detalle, 400, 280);
             }
 
             ctx.fillStyle = '#2c1810';
-            ctx.font = '16px "Courier Prime", monospace';
+            ctx.font = 'bold 16px "Courier Prime", monospace';
             ctx.textAlign = 'center';
-            ctx.fillText(`ID DE REGISTRO: ${idReg} | LUGAR: MAR DEL PLATA`, 400, 475);
+            ctx.fillText(`${titulo} — ${detalle}`, 400, 440);
 
-            ctx.font = '14px "Special Elite", cursive';
-            ctx.fillText("© 2026 VentaniYA! Cinemascopado — Pieza de Colección Oficial", 400, 525);
+            ctx.font = '15px "Courier Prime", monospace';
+            ctx.fillText(`ID DE REGISTRO: ${idReg} | MAR DEL PLATA`, 400, 480);
 
-            dispararDescarga(canvas, `Pieza_Guia_${idReg}.png`);
+            ctx.font = '13px "Special Elite", cursive';
+            ctx.fillText("BonusYA! VentaniYA! MDP — Derechos Reservados", 400, 520);
+
+            dispararDescarga(canvas, `Aviso_${idReg}.png`);
         }
 
         function dispararDescarga(canvas, nombreArchivo) {
