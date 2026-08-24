@@ -11,41 +11,43 @@
             background-color: #2b1d11;
             color: #2c1810;
             margin: 0;
-            padding: 15px;
+            padding: 10px;
             display: flex;
             justify-content: center;
         }
         .libro-container {
-            width: 1020px;
+            width: 100%;
+            max-width: 600px; /* Adaptado para que luzca perfecto en celu y pantallas verticales */
             background: #f4ebd0;
-            border: 6px solid #4a2e18;
-            padding: 25px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            border: 4px solid #4a2e18;
+            padding: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
             border-radius: 4px;
             box-sizing: border-box;
         }
         .header-guia {
             text-align: center;
             border-bottom: 2px dashed #4a2e18;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
         .header-guia h1 {
             font-family: 'Special Elite', cursive;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin: 0;
             color: #2c1810;
             letter-spacing: 1px;
         }
         .header-guia p {
-            font-size: 0.8rem;
-            margin: 5px 0 0 0;
+            font-size: 0.75rem;
+            margin: 4px 0 0 0;
             color: #5c3a21;
         }
+        /* Grilla vertical de 2 en 2 para celulares y web */
         .grilla-directorio {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
         }
         .casilla {
             background: #fdfbf7;
@@ -56,6 +58,7 @@
             justify-content: space-between;
             font-size: 0.65rem;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            border-radius: 3px;
         }
         .casilla.interactiva-1 {
             background: #faedcd;
@@ -67,31 +70,38 @@
         }
         .casilla-titulo {
             font-family: 'Special Elite', cursive;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-align: center;
             border-bottom: 1px solid #5c3a21;
             padding-bottom: 3px;
             margin-bottom: 4px;
         }
-        .casilla-img {
+        /* Contenedor de foto sin recortes (modo contain) */
+        .casilla-img-container {
             width: 100%;
-            height: 75px;
-            background: #e3d2b0;
+            height: 110px;
+            background: #2b1d11; /* Fondo oscuro elegante para evitar espacios vacíos blancos */
             border: 1px solid #5c3a21;
-            background-size: cover;
-            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            font-size: 0.6rem;
-            color: #5c3a21;
-            box-sizing: border-box;
+            overflow: hidden;
             position: relative;
+        }
+        .casilla-img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* ¡Esto evita que le cortemos la cabeza al verdulero! Se ve entera */
+        }
+        .casilla-img-placeholder {
+            color: #f4ebd0;
+            font-size: 0.6rem;
+            text-align: center;
         }
         .casilla-datos {
             margin-top: 4px;
             line-height: 1.2;
+            word-break: break-word;
         }
         .btn-accion-mini {
             background: #5c3a21;
@@ -99,9 +109,9 @@
             border: none;
             font-family: 'Special Elite', cursive;
             font-size: 0.6rem;
-            padding: 4px;
+            padding: 5px;
             cursor: pointer;
-            margin-top: 3px;
+            margin-top: 4px;
             width: 100%;
             border-radius: 2px;
         }
@@ -111,7 +121,7 @@
         input[type="text"] {
             width: 100%;
             font-size: 0.6rem;
-            padding: 3px;
+            padding: 4px;
             margin-top: 3px;
             box-sizing: border-box;
             background: #fff;
@@ -127,10 +137,10 @@
         }
         .footer-guia {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.75rem;
+            margin-top: 15px;
+            font-size: 0.7rem;
             border-top: 2px dashed #4a2e18;
-            padding-top: 10px;
+            padding-top: 8px;
             color: #5c3a21;
         }
         #canvas-output { display: none; }
@@ -140,8 +150,8 @@
 
     <div class="libro-container">
         <div class="header-guia">
-            <h1>PÁGINAS BRONCEADAS — DIRECTORIO DE COLECCIÓN 2026</h1>
-            <p>BonusYA! VentaniYA! MDP — Registro Rápido de Avisos y Beneficios</p>
+            <h1>PÁGINAS BRONCEADAS — DIRECTORIO 2026</h1>
+            <p>BonusYA! VentaniYA! MDP — Mobile & Sites</p>
         </div>
 
         <div class="grilla-directorio" id="grilla-completa">
@@ -149,7 +159,9 @@
             <!-- Casillero 1: Vía del Milisegundo -->
             <div class="casilla interactiva-1">
                 <div class="casilla-titulo" style="color:#0077b6;">Vía del Milisegundo</div>
-                <div class="casilla-img" id="img-slot-0">[ Subir Foto ]</div>
+                <div class="casilla-img-container" id="img-container-0">
+                    <span class="casilla-img-placeholder" id="lbl-ph-0">[ Subir Foto ]</span>
+                </div>
                 <input type="text" id="text-0" placeholder="Título / Anuncio...">
                 <div class="casilla-datos">
                     <strong>ID:</strong> REF-2026-X01<br>
@@ -162,7 +174,9 @@
             <!-- Casillero 2: Sello Atómico VentaniYA! MDP 1001 -->
             <div class="casilla interactiva-2">
                 <div class="casilla-titulo" style="color:#bc6c25;">Sello Atómico 1001</div>
-                <div class="casilla-img" id="img-slot-1">[ Subir Foto ]</div>
+                <div class="casilla-img-container" id="img-container-1">
+                    <span class="casilla-img-placeholder" id="lbl-ph-1">[ Subir Foto ]</span>
+                </div>
                 <input type="text" id="text-1" placeholder="Título / Anuncio...">
                 <div class="casilla-datos">
                     <strong>ID:</strong> MDP-1001-X02<br>
@@ -172,15 +186,15 @@
                 <button class="btn-accion-mini" style="background:#bc6c25;" onclick="descargarAtomico(1)">💾 Descargar HD</button>
             </div>
 
-            <!-- Casilleros 3 al 10: Avisos comerciales con Modo Edición integrado -->
+            <!-- Casilleros 3 al 10: Avisos comerciales en grilla de 2 columnas -->
             <script>
                 for(let i = 0; i < 8; i++) {
                     let numID = "2026-X0" + (i + 3);
                     document.write(`
                         <div class="casilla">
                             <div class="casilla-titulo">Aviso Publicitario</div>
-                            <div class="casilla-img" id="fijo-img-${i}">
-                                <span id="fijo-lbl-${i}">[ Espacio Libre ]</span>
+                            <div class="casilla-img-container" id="fijo-container-${i}">
+                                <span class="casilla-img-placeholder" id="fijo-lbl-${i}">[ Espacio Libre ]</span>
                             </div>
                             
                             <!-- Vista Estática de Texto -->
@@ -207,7 +221,7 @@
         </div>
 
         <div class="footer-guia">
-            © 2026 BonusYA! VentaniYA! MDP — Derechos Reservados / Sistema de Venta Ágil
+            © 2026 BonusYA! VentaniYA! MDP — Sistema de Venta Ágil
         </div>
     </div>
 
@@ -246,9 +260,11 @@
                     const img = new Image();
                     img.onload = function() {
                         imagenesSubidas[index] = img;
-                        const slot = document.getElementById(`img-slot-${index}`);
-                        slot.style.backgroundImage = `url(${e.target.result})`;
-                        slot.innerText = '';
+                        const container = document.getElementById(`img-container-${index}`);
+                        container.innerHTML = '';
+                        const tagImg = document.createElement('img');
+                        tagImg.src = e.target.result;
+                        container.appendChild(tagImg);
                     }
                     img.src = e.target.result;
                 }
@@ -264,10 +280,11 @@
                     const img = new Image();
                     img.onload = function() {
                         imagenesFijas[index] = img;
-                        const slot = document.getElementById(`fijo-img-${index}`);
-                        slot.style.backgroundImage = `url(${e.target.result})`;
-                        const lbl = document.getElementById(`fijo-lbl-${index}`);
-                        if(lbl) lbl.style.display = 'none';
+                        const container = document.getElementById(`fijo-container-${index}`);
+                        container.innerHTML = '';
+                        const tagImg = document.createElement('img');
+                        tagImg.src = e.target.result;
+                        container.appendChild(tagImg);
                     }
                     img.src = e.target.result;
                 }
@@ -275,7 +292,7 @@
             }
         }
 
-        // Alternar Modo Edición en cada casillero
+        // Alternar Modo Edición
         function toggleEdicion(index) {
             const panel = document.getElementById(`panel-edit-${index}`);
             const vista = document.getElementById(`vista-txt-${index}`);
@@ -284,14 +301,12 @@
             let editando = estadosEdicion[index] || false;
 
             if (!editando) {
-                // Abrir edición
                 panel.style.display = 'block';
                 vista.style.display = 'none';
                 btn.innerText = '💾 Guardar Cambios';
                 btn.style.background = '#bc6c25';
                 estadosEdicion[index] = true;
             } else {
-                // Guardar y refrescar texto visible
                 const nuevoTitulo = document.getElementById(`fijo-title-${index}`).value;
                 const nuevoDesc = document.getElementById(`fijo-desc-${index}`).value;
 
@@ -306,7 +321,7 @@
             }
         }
 
-        // Descarga 1: Vía del Milisegundo
+        // Descarga 1: Vía del Milisegundo (Mantiene proporción completa sin recortar)
         function descargarMilisegundo(index) {
             const imgUser = imagenesSubidas[index];
             if (!imgUser) { alert("Primero subí una foto en este casillero."); return; }
@@ -318,30 +333,32 @@
             const msgUsuario = document.getElementById('text-0').value;
             const hashUnico = 'HASH-' + Math.random().toString(36).substring(2, 9).toUpperCase();
 
-            ctx.fillStyle = '#000';
+            ctx.fillStyle = '#1a1008';
             ctx.fillRect(0, 0, 800, 600);
-            ctx.drawImage(imgUser, 0, 0, 800, 600);
 
-            ctx.shadowBlur = 15;
+            // Dibujar imagen ajustada completa (Contain)
+            dibujarImagenContain(ctx, imgUser, 50, 80, 700, 360);
+
+            ctx.shadowBlur = 10;
             ctx.shadowColor = "#00f2ff";
             ctx.fillStyle = "#00f2ff";
-            ctx.font = 'bold 32px "Orbitron", sans-serif';
+            ctx.font = 'bold 28px "Orbitron", sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText("VÍA DEL MILISEGUNDO", 400, 60);
+            ctx.fillText("VÍA DEL MILISEGUNDO", 400, 45);
 
-            ctx.font = '20px "Courier Prime", monospace';
-            ctx.fillText(timestamp, 400, 100);
+            ctx.font = '16px "Courier Prime", monospace';
+            ctx.fillText(timestamp, 400, 68);
 
             if(msgUsuario) {
-                ctx.font = 'italic 18px "Courier Prime", monospace';
+                ctx.font = 'italic 16px "Courier Prime", monospace';
                 ctx.fillStyle = "#ffffff";
-                ctx.fillText(`"${msgUsuario}"`, 400, 140);
+                ctx.shadowBlur = 0;
+                ctx.fillText(`"${msgUsuario}"`, 400, 475);
             }
 
-            ctx.font = '15px "Courier Prime", monospace';
-            ctx.shadowBlur = 0;
+            ctx.font = '14px "Courier Prime", monospace';
             ctx.fillStyle = "#ffffff";
-            ctx.fillText(`ID: REF-2026-X01 | ${hashUnico} | MAR DEL PLATA`, 400, 565);
+            ctx.fillText(`ID: REF-2026-X01 | ${hashUnico} | MAR DEL PLATA`, 400, 575);
 
             ctx.strokeStyle = "#00f2ff";
             ctx.lineWidth = 3;
@@ -362,29 +379,30 @@
 
             ctx.fillStyle = '#f4ebd0';
             ctx.fillRect(0, 0, 800, 600);
-            ctx.drawImage(imgUser, 50, 45, 700, 370);
+            
+            dibujarImagenContain(ctx, imgUser, 50, 45, 700, 370);
 
             ctx.strokeStyle = '#bc6c25';
             ctx.lineWidth = 6;
             ctx.strokeRect(35, 30, 730, 540);
 
             ctx.fillStyle = '#2c1810';
-            ctx.font = 'bold 22px "Special Elite", cursive';
+            ctx.font = 'bold 20px "Special Elite", cursive';
             ctx.textAlign = 'center';
-            ctx.fillText("VENTANIYA! MDP 1001 — SELLO ATÓMICO", 400, 455);
+            ctx.fillText("VENTANIYA! MDP 1001 — SELLO ATÓMICO", 400, 450);
 
             if(msgUsuario) {
-                ctx.font = 'italic 18px "Courier Prime", monospace';
-                ctx.fillText(`"${msgUsuario}"`, 400, 490);
+                ctx.font = 'italic 16px "Courier Prime", monospace';
+                ctx.fillText(`"${msgUsuario}"`, 400, 485);
             }
 
-            ctx.font = '15px "Courier Prime", monospace';
+            ctx.font = '14px "Courier Prime", monospace';
             ctx.fillText(`REGISTRO: MDP-1001-X02 | FECHA: ${ahora} | MAR DEL PLATA`, 400, 535);
 
             dispararDescarga(canvas, 'Sello_Atomico_VentaniYA_1001.png');
         }
 
-        // Descarga 3: Avisos Fijos / Comerciales editables (Casilleros 3 al 10)
+        // Descarga 3: Avisos Fijos / Comerciales editables
         function descargarFijo(index, idReg) {
             const canvas = document.getElementById('canvas-output');
             const ctx = canvas.getContext('2d');
@@ -400,35 +418,45 @@
             ctx.strokeRect(40, 40, 720, 520);
 
             if (imgPersonalizada) {
-                ctx.drawImage(imgPersonalizada, 80, 90, 640, 320);
+                dibujarImagenContain(ctx, imgPersonalizada, 70, 70, 660, 310);
             } else {
                 ctx.fillStyle = '#e3d2b0';
-                ctx.fillRect(100, 100, 600, 300);
+                ctx.fillRect(80, 70, 640, 310);
                 ctx.strokeStyle = '#5c3a21';
                 ctx.lineWidth = 2;
-                ctx.strokeRect(100, 100, 600, 300);
+                ctx.strokeRect(80, 70, 640, 310);
 
                 ctx.fillStyle = '#2c1810';
-                ctx.font = 'bold 30px "Special Elite", cursive';
+                ctx.font = 'bold 28px "Special Elite", cursive';
                 ctx.textAlign = 'center';
-                ctx.fillText(titulo.toUpperCase(), 400, 200);
+                ctx.fillText(titulo.toUpperCase(), 400, 180);
 
-                ctx.font = 'italic 22px "Courier Prime", monospace';
-                ctx.fillText(detalle, 400, 280);
+                ctx.font = 'italic 20px "Courier Prime", monospace';
+                ctx.fillText(detalle, 400, 250);
             }
 
             ctx.fillStyle = '#2c1810';
             ctx.font = 'bold 16px "Courier Prime", monospace';
             ctx.textAlign = 'center';
-            ctx.fillText(`${titulo} — ${detalle}`, 400, 440);
+            ctx.fillText(`${titulo} — ${detalle}`, 400, 430);
 
-            ctx.font = '15px "Courier Prime", monospace';
-            ctx.fillText(`ID DE REGISTRO: ${idReg} | MAR DEL PLATA`, 400, 480);
+            ctx.font = '14px "Courier Prime", monospace';
+            ctx.fillText(`ID DE REGISTRO: ${idReg} | MAR DEL PLATA`, 400, 470);
 
-            ctx.font = '13px "Special Elite", cursive';
-            ctx.fillText("BonusYA! VentaniYA! MDP — Derechos Reservados", 400, 520);
+            ctx.font = '12px "Special Elite", cursive';
+            ctx.fillText("BonusYA! VentaniYA! MDP — Derechos Reservados", 400, 510);
 
             dispararDescarga(canvas, `Aviso_${idReg}.png`);
+        }
+
+        // Función matemática para adaptar la foto completa al canvas sin recortar (Contain)
+        function dibujarImagenContain(ctx, img, x, y, anchoMax, altoMax) {
+            const hRatio = anchoMax / img.width;
+            const vRatio = altoMax / img.height;
+            const ratio = Math.min(hRatio, vRatio);
+            const centroX = x + (anchoMax - img.width * ratio) / 2;
+            const centroY = y + (altoMax - img.height * ratio) / 2;
+            ctx.drawImage(img, 0, 0, img.width, img.height, centroX, centroY, img.width * ratio, img.height * ratio);
         }
 
         function dispararDescarga(canvas, nombreArchivo) {
